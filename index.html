@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broken But Beautiful | For Tanha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Maishan&family=Playfair+Display:ital,wght@0,400;1,400&family=Hind+Siliguri:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(5, 5, 5, 0.88);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-main: #f5f5f5;
+            --accent-purple: #9d4edd;
+            --electric-purple: #c77dff;
+            --glow-color: rgba(157, 78, 221, 0.6);
+        }
+
+        /* --- CUSTOM FLOATING HEART CURSOR --- */
+        * { cursor: none !important; }
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 24px; height: 24px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c77dff'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 0 12px var(--accent-purple));
+        }
+
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239d4edd'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+            z-index: 9999;
+            animation: floatAway 1.5s ease-out forwards;
+        }
+
+        @keyframes floatAway {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -150%) scale(0); opacity: 0; }
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background: #020205;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND SETTINGS --- */
+        .bg-wrap { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; overflow: hidden; }
+        .bg-image {
+            position: absolute; top: -5%; left: -5%; width: 110%; height: 110%;
+            background: url('https://i.imgur.com/8Qp49Xg.jpeg') no-repeat center center;
+            background-size: cover;
+            filter: brightness(0.3) contrast(1.1) saturate(0.8) blur(1px);
+            animation: slowPan 60s infinite alternate linear;
+        }
+        @keyframes slowPan { from { transform: scale(1.0); } to { transform: scale(1.15); } }
+
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(10, 1, 20, 0.5) 0%, #020205 95%);
+            z-index: -2;
+        }
+
+        .highlight-glow { position: fixed; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+        .pulse-blob {
+            position: absolute; width: 700px; height: 700px;
+            background: var(--accent-purple); filter: blur(160px);
+            border-radius: 50%; opacity: 0.3;
+            animation: pulse-aura 5s infinite ease-in-out;
+        }
+        @keyframes pulse-aura { 0%, 100% { transform: scale(1); opacity: 0.25; } 50% { transform: scale(1.25); opacity: 0.45; } }
+
+        /* --- LOVE CARD --- */
+        .love-card {
+            margin: 60px 20px 100px; max-width: 680px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 35px;
+            padding: 65px;
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9);
+            position: relative; z-index: 5;
+            transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* English Styling: Handwritten Love Theme */
+        .letter-content { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 1.6rem; 
+            line-height: 1.8; 
+            white-space: pre-wrap; 
+            font-weight: 400; 
+            letter-spacing: 0.5px;
+        }
+
+        /* Bangla Styling: Artistic/Poetic Font */
+        .bangla-text { 
+            font-family: 'Maishan', 'Hind Siliguri', sans-serif; 
+            font-size: 1.5rem; 
+            line-height: 2.2; 
+            font-weight: 400; 
+        }
+
+        .salutation { 
+            font-size: 2.4rem; 
+            margin-bottom: 25px; 
+            display: block; 
+            color: var(--electric-purple); 
+            font-style: italic; 
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.4);
+        }
+
+        .highlight { color: #fff; text-shadow: 0 0 15px var(--glow-color); font-weight: 600; }
+        
+        .closing { 
+            margin-top: 60px; 
+            border-top: 1px solid var(--glass-border); 
+            padding-top: 30px; 
+            font-style: italic; 
+            opacity: 0.7; 
+            font-size: 1.4rem;
+        }
+
+        /* --- CONTROLS --- */
+        .controls { margin-top: 50px; z-index: 10; text-align: center; }
+        .translate-btn {
+            background: rgba(157, 78, 221, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--electric-purple);
+            color: white; padding: 15px 45px;
+            border-radius: 50px; font-family: 'Hind Siliguri', sans-serif;
+            letter-spacing: 3px; transition: 0.5s;
+            text-transform: uppercase; font-size: 0.8rem;
+        }
+        .translate-btn:hover { background: var(--accent-purple); box-shadow: 0 0 40px var(--glow-color); transform: translateY(-3px); }
+
+        #yt-container { position: fixed; top: -1000px; left: -1000px; }
+        @media (max-width: 600px) { .love-card { padding: 45px 25px; } .letter-content { font-size: 1.3rem; } }
+    </style>
+</head>
+<body onclick="playMemoryMusic()">
+
+    <div id="custom-cursor"></div>
+    
+    <div class="bg-wrap"><div class="bg-image"></div></div>
+    <div class="bg-overlay"></div>
+    
+    <div class="highlight-glow">
+        <div class="pulse-blob" style="top: -15%; left: -15%;"></div>
+        <div class="pulse-blob" style="bottom: -15%; right: -15%; background: #3c096c;"></div>
+    </div>
+
+    <div id="yt-container">
+        <iframe id="mashup-player" src="https://www.youtube.com/embed/bCVWkef2Lzw?enablejsapi=1&autoplay=1&loop=1&playlist=bCVWkef2Lzw" frameborder="0" allow="autoplay"></iframe>
+    </div>
+
+    <div class="controls">
+        <button class="translate-btn" onclick="toggleLanguage(); event.stopPropagation();" id="langBtn" onmouseover="growCursor()" onmouseleave="shrinkCursor()">Translate to বাংলা</button>
+        <p style="font-size: 0.6rem; color: #c77dff; margin-top: 20px; letter-spacing: 6px; font-weight: 400; opacity: 0.8;">TAP TO ENTER HER MEMORY</p>
+    </div>
+
+    <h2 style="margin-top: 40px; font-size: 0.75rem; font-family: 'Playfair Display'; letter-spacing: 20px; text-transform: uppercase; color: rgba(255, 255, 255, 0.1); font-weight: 300;">Broken-But-Beautiful</h2>
+
+    <div class="love-card" id="card">
+        <div class="letter-content" id="letter">
+<span class="salutation">Dearest Tanha,</span>
+I’ve sat down to write this a dozen times, and every time, the words seem to chase each other in circles. It’s been nearly three months since we decided to go our separate ways, yet somehow, you’re still the most consistent melody in my life.
+
+I want you to know how much I cherish our phone calls. Hearing your voice three or four times a week is both a gift and a quiet ache. It tells me that despite the distance we put between us, the "us" we built hasn't fully faded into the noise of the world. I find myself looking at my phone, waiting for your name to light up the screen, because even a few minutes of talking to you feels more like <span class="highlight">"home"</span> than anything else I’ve found lately.
+
+I miss you, Tanha. I miss the way we understood each other without trying. But more than the missing, I want us to find peace.
+
+Whether these calls are our way of healing or a bridge leading us back to one another, I want you to know there is no bitterness here—only love. I hope you’re taking care of yourself. I hope you’re laughing. And I hope you know that whenever you feel the need to reach out, I’m still here, listening with the same heart I’ve always had for you.
+
+You are still in my <span class="highlight">favorite Memories.</span>
+
+<div class="closing">
+Always,<br>
+[Your_LOST-LOVE!]
+</div>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            if (Math.random() > 0.80) { 
+                createParticle(e.clientX, e.clientY);
+            }
+        });
+
+        function createParticle(x, y) {
+            const p = document.createElement('div');
+            p.className = 'heart-particle';
+            const size = Math.random() * 12 + 8;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1500);
+        }
+
+        function growCursor() { cursor.style.transform = "translate(-50%, -50%) scale(1.6)"; }
+        function shrinkCursor() { cursor.style.transform = "translate(-50%, -50%) scale(1)"; }
+
+        function playMemoryMusic() {
+            const player = document.getElementById('mashup-player');
+            player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+
+        const englishText = document.getElementById('letter').innerHTML;
+        const banglaText = `<span class="salutation">প্রিয় তানহা,</span>
+আমাদের আলাদা হওয়ার প্রায় তিন মাস হয়ে গেল, তবুও কোনোভাবে তুমি আজও আমার জীবনের সবচেয়ে প্রিয় স্মৃতি হয়ে আছো।
+-সপ্তাহে তিন-চারবার তোমার কণ্ঠস্বর শুনতে পাওয়াটা একই সাথে একটা উপহার এবং এক নীরব হাহাকার। এটি আমাকে মনে করিয়ে দেয় যে আমাদের মধ্যে দূরত্ব থাকলেও, আমাদের গড়া সেই "আমরা" শব্দটা পৃথিবীর এই কোলাহলে এখনো পুরোপুরি মুছে যায়নি। 
+-Still Miss You..। বিনা চেষ্টায় আমরা যেভাবে একে অপরকে বুঝতাম, সেই সহজ দিনগুলোকে খুব মিস করি। কিন্তু এই অভাববোধের চেয়েও বড় কথা, আমি চাই আমরা শান্তিতে থাকি।
+
+এই কলগুলো আমাদের ক্ষত সারানোর পথ হোক কিংবা আমাদের আবার কাছাকাছি আনার সেতু—আমি চাই তুমি জানো যে এখানে কোনো ঘৃণা নেই, আছে শুধু ভালোবাসা। আশা করি তুমি নিজের খেয়াল রাখবে।তোমার হাসিগুলো সব সময় আমার ভালো থাকার কারন। আর জেনো যে, যখনই তোমার কথা বলার প্রয়োজন হবে, আমি সেখানেই আছি—সেই একই মন নিয়ে যা সবসময় তোমারই ছিল।
+
+তুমি আজও আছো আমরা<span class="highlight">সুন্দর স্মৃতির পাতায়।</span>
+
+<div class="closing">
+Your's<br>
+[Your Lost-Love]
+</div>`;
+
+        let isEnglish = true;
+        function toggleLanguage() {
+            playMemoryMusic();
+            const letter = document.getElementById('letter');
+            const btn = document.getElementById('langBtn');
+            const card = document.getElementById('card');
+
+            card.style.opacity = 0;
+            setTimeout(() => {
+                if (isEnglish) {
+                    letter.innerHTML = banglaText;
+                    letter.classList.add('bangla-text');
+                    btn.innerText = "Translate to English";
+                } else {
+                    letter.innerHTML = englishText;
+                    letter.classList.remove('bangla-text');
+                    btn.innerText = "Translate to বাংলা";
+                }
+                isEnglish = !isEnglish;
+                card.style.opacity = 1;
+            }, 600);
+        }
+    </script>
+</body>
+</html>
